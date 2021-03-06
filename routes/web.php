@@ -132,6 +132,37 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/catalogos/{id}/inactive', 'CatalogosController@inactive')->middleware('permiso:catalogos.inactive'); 
 
 
+/*
+|--------------------------------------------------------------------------
+| Marcas
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/marcas/store', 'MarcasController@store')->middleware('permiso:marcas.store'); 
+	Route::get('admin/marcas', 'MarcasController@index')->middleware('permiso:marcas.index'); 
+	Route::get('admin/marcas/create', 'MarcasController@create')->middleware('permiso:marcas.create'); 
+	Route::post('admin/marcas/{id}/edit', 'MarcasController@update')->middleware('permiso:marcas.update'); 
+	Route::get('admin/marcas/{id}/edit', 'MarcasController@edit')->middleware('permiso:marcas.edit'); 
+	Route::post('admin/marcas/{id}/active', 'MarcasController@active')->middleware('permiso:marcas.active'); 
+	Route::post('admin/marcas/{id}/inactive', 'MarcasController@inactive')->middleware('permiso:marcas.inactive'); 
+
+/*
+|--------------------------------------------------------------------------
+| Modelos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/modelos/store', 'ModeloController@store')->middleware('permiso:modelos.store'); 
+	Route::get('admin/modelos', 'ModeloController@index')->middleware('permiso:modelos.index'); 
+	Route::get('admin/modelos/create', 'ModeloController@create')->middleware('permiso:modelos.create'); 
+	Route::post('admin/modelos/{id}/edit', 'ModeloController@update')->middleware('permiso:modelos.update'); 
+	Route::get('admin/modelos/{id}/edit', 'ModeloController@edit')->middleware('permiso:modelos.edit'); 
+	Route::post('admin/modelos/{id}/active', 'ModeloController@active')->middleware('permiso:modelos.active'); 
+	Route::post('admin/modelos/{id}/inactive', 'ModeloController@inactive')->middleware('permiso:modelos.inactive'); 
+	Route::delete('admin/modelos/{id}', 'ModeloController@destroy')->middleware('permiso:modelos.destroy'); 
+
 
 
 

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Bienvenido a Mueblapp.
+                    ¡Bienvenido!
                 </div>
             </div>
         </div>
