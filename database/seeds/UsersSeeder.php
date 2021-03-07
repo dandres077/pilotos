@@ -15,7 +15,23 @@ class UsersSeeder extends Seeder
         User::create([
         	'name' => 'David', 
         	'last' => 'C', 
-        	'email' => 'david@gmail.com', 
+        	'email' => 'admin@gmail.com', 
+        	'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
+        User::create([
+        	'name' => 'Andres', 
+        	'last' => 'C', 
+        	'email' => 'piloto1@gmail.com', 
+        	'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
+        User::create([
+        	'name' => 'Camilo', 
+        	'last' => 'C', 
+        	'email' => 'piloto2@gmail.com', 
         	'password' => bcrypt('123456'),
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
         ]);

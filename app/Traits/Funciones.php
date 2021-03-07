@@ -8,11 +8,33 @@ use DB;
 
 trait Funciones
 {
-    public function saber_dia($nombredia) {
-        $dias = array('', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado', 'Domingo');
-        $fecha = $dias[date('N', strtotime($nombredia))];
-        return $fecha;
-    }
+    public function permisos($id)
+    {
 
-    //Mirar UserController para validar como se configura el uso del Trait
+        $rol = DB::table('model_has_roles')
+                ->select('id')
+                ->where('role_id', 1)  //Administrador general
+                ->where('model_id', $id)
+                ->count();
+
+        $rol2 = DB::table('model_has_roles')
+                ->select('id')
+                ->where('role_id', 2)  //Piloto
+                ->where('model_id', $id)
+                ->count();
+
+        if ($rol>0) {
+
+           return 1;
+
+        }elseif($rol2>0){
+
+            return 2;
+
+        }else{
+            
+            return 3;
+        }
+
+   }
 }

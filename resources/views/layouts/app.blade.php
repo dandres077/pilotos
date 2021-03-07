@@ -16,11 +16,6 @@
 
         <!--end::Fonts -->
 
-        <!--begin::Page Vendors Styles(used by this page) -->
-        <link href="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-        <!--end::Page Vendors Styles -->
-
         <!--begin::Global Theme Styles(used by all pages) -->
         <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
@@ -65,15 +60,12 @@
         @section('style')
         @show
 
-        @livewireStyles 
     </head>
 
     <!-- end::Head -->
 
     <!-- begin::Body -->
     <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
-
-        @livewireScripts
 
         <!-- begin:: Page -->
 
@@ -107,10 +99,6 @@
 
         <!-- end:: Page -->
 
-        <!-- begin::Quick Panel -->
-        @include('include.notificaciones')
-
-        <!-- end::Quick Panel -->
 
         <!-- begin::Scrolltop -->
         <div id="kt_scrolltop" class="kt-scrolltop">
@@ -118,21 +106,6 @@
         </div>
 
         <!-- end::Scrolltop -->
-
-        <!-- begin::Sticky Toolbar -->
-        <!-- @include('include.menuderecho')-->
-
-        <!-- end::Sticky Toolbar -->
-
-        <!-- begin::Demo Panel -->
-        <!--@include('include.demo') -->
-
-        <!-- end::Demo Panel -->
-
-        <!--Begin:: Chat-->
-        @include('include.chat')
-
-        <!--ENd:: Chat-->
 
         <!-- begin::Global Config(global config for global JS sciprts) -->
         <script>

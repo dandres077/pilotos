@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Modelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ModelosRequest;
+use App\Traits\Funciones;
 use DB;
 
 class ModeloController extends Controller
 {
+    use Funciones;
 /*
 }
 |--------------------------------------------------------------------------
@@ -19,7 +22,11 @@ class ModeloController extends Controller
 
     public function index()
     {
-        $data = DB::table('modelos')
+        $permiso = $this->permisos(Auth::id()); 
+        
+        if ($permiso == 1) { //Administrador general
+
+            $data = DB::table('modelos')
             ->leftJoin('marcas', 'modelos.marca_id', '=', 'marcas.id')
             ->select(
                 'modelos.*',
@@ -29,6 +36,20 @@ class ModeloController extends Controller
             ->orderByRaw('modelos.id ASC')
             ->get();
 
+        }elseif($permiso == 2){ //Piloto
+
+            $data = DB::table('modelos')
+            ->leftJoin('marcas', 'modelos.marca_id', '=', 'marcas.id')
+            ->select(
+                'modelos.*',
+                'marcas.nombre as nom_marca',
+                DB::raw('(CASE WHEN modelos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+            ->where('modelos.user_create', Auth::id())
+            ->where('modelos.status', '<>', 3 )
+            ->orderByRaw('modelos.id ASC')
+            ->get();
+        }
+        
         $titulo = 'Modelos';
 
         return view('modelos.index', compact('data', 'titulo'));
@@ -44,7 +65,17 @@ class ModeloController extends Controller
 
     public function create()
     {
-        $marcas = DB::table('marcas')->select('marcas.*')->where('status', 1 )->get();
+        $permiso = $this->permisos(Auth::id()); 
+        
+        if ($permiso == 1) { //Administrador general
+
+            $marcas = DB::table('marcas')->select('marcas.*')->where('status', 1 )->get();
+
+        }elseif($permiso == 2){ //Piloto
+
+            $marcas = DB::table('marcas')->select('marcas.*')->where('user_create', Auth::id())->where('status', 1 )->get();
+        }
+
         $titulo = 'Modelos';
 
         return view('modelos.create', compact('titulo', 'marcas'));
@@ -57,7 +88,7 @@ class ModeloController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function store(Request $request)
+    public function store(ModelosRequest $request)
     {
 
         $request['user_create'] = Auth::id();
@@ -76,9 +107,20 @@ class ModeloController extends Controller
 
     public function edit($id)
     {
+        $permiso = $this->permisos(Auth::id()); 
 
         $data = Modelo::find($id); 
-        $marcas = DB::table('marcas')->select('marcas.*')->where('status', 1 )->get();       
+        
+        if ($permiso == 1) { //Administrador general
+
+            $marcas = DB::table('marcas')->select('marcas.*')->where('status', 1 )->get();
+
+        }elseif($permiso == 2){ //Piloto
+
+            $this->authorize('view', $data);
+
+            $marcas = DB::table('marcas')->select('marcas.*')->where('user_create', Auth::id())->where('status', 1 )->get();
+        }      
         $titulo = 'Modelos';
 
         return view ('modelos.edit')->with (compact('data', 'titulo', 'marcas'));
@@ -92,16 +134,20 @@ class ModeloController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function update(Request $request, $id)
+    public function update(ModelosRequest $request, $id)
     {
+        $data = Modelo::find($id);         
 
-        $data = Modelo::find($id);
-        $data->marca_id = $request->input('marca_id');
-        $data->nombre = $request->input('nombre');
-        $data->user_update = Auth::id();
-        $data->save();
+        $permiso = $this->permisos(Auth::id()); 
 
-        
+        if($permiso == 2){ //Piloto
+             
+            $this->authorize('view', $data);        
+        } 
+
+        $request['user_update'] = Auth::id();
+        $datos = Modelo::find($id)->update($request->all());
+
         return redirect ('admin/modelos')->with('success', 'Registro actualizado exitosamente');
     }
 
@@ -134,7 +180,8 @@ class ModeloController extends Controller
 */
 
     public function inactive($id)
-    {
+    {       
+
         $data = Modelo::find($id);
         $data->status = 2;
         $data->user_update = Auth::id();

@@ -23,13 +23,13 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/roles/store', 'RoleController@store');
-	Route::get('admin/roles', 'RoleController@index');
-	Route::get('admin/roles/create', 'RoleController@create');
-	Route::post('admin/roles/{id}/edit', 'RoleController@update');
-	Route::get('admin/roles/{id}', 'RoleController@show');
-	Route::delete('admin/roles/{id}', 'RoleController@destroy');
-	Route::get('admin/roles/{id}/edit', 'RoleController@edit');
+	Route::post('admin/roles/store', 'RoleController@store')->middleware('permiso:roles.store'); 
+	Route::get('admin/roles', 'RoleController@index')->middleware('permiso:roles.index'); 
+	Route::get('admin/roles/create', 'RoleController@create')->middleware('permiso:roles.create'); 
+	Route::post('admin/roles/{id}/edit', 'RoleController@update')->middleware('permiso:roles.update'); 
+	Route::get('admin/roles/{id}', 'RoleController@show')->middleware('permiso:roles.show'); 
+	Route::delete('admin/roles/{id}', 'RoleController@destroy')->middleware('permiso:roles.destroy'); 
+	Route::get('admin/roles/{id}/edit', 'RoleController@edit')->middleware('permiso:roles.edit'); 
 
 /*
 |--------------------------------------------------------------------------
@@ -37,13 +37,13 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/permisos/store', 'PermisosController@store');
-	Route::get('admin/permisos', 'PermisosController@index');
-	Route::get('admin/permisos/create', 'PermisosController@create');
-	Route::put('admin/permisos/{role}', 'PermisosController@edit');
-	Route::get('admin/permisos/{role}', 'PermisosController@show');
-	Route::delete('admin/permisos/{role}', 'PermisosController@destroy');
-	Route::get('admin/permisos/{role}/edit', 'PermisosController@edit');
+	Route::post('admin/permisos/store', 'PermisosController@store')->middleware('permiso:permisos.store'); 
+	Route::get('admin/permisos', 'PermisosController@index')->middleware('permiso:permisos.index'); 
+	Route::get('admin/permisos/create', 'PermisosController@create')->middleware('permiso:permisos.create'); 
+	Route::put('admin/permisos/{role}', 'PermisosController@edit')->middleware('permiso:permisos.edit'); 
+	Route::get('admin/permisos/{role}', 'PermisosController@show')->middleware('permiso:permisos.show'); 
+	Route::delete('admin/permisos/{role}', 'PermisosController@destroy')->middleware('permiso:permisos.destroy'); 
+	Route::get('admin/permisos/{role}/edit', 'PermisosController@edit')->middleware('permiso:permisos.edit'); 
 
 /*
 |--------------------------------------------------------------------------

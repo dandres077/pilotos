@@ -79,10 +79,10 @@
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                         <div class="kt-form__actions">
-                                            @can('marcas.store')
+                                            @can('modelos.store')
                                             <button type="submit" class="btn btn-primary" name="enviar">Crear</button>
                                             @endcan
-                                            <a href="{{ url ('admin/marcas')}}" class="btn btn-secondary">Cancelar</a>
+                                            <a href="{{ url ('admin/modelos')}}" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

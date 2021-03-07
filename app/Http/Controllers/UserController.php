@@ -51,7 +51,7 @@ class UserController extends Controller
 /*-- ----------------------------
 -- Store
 -- ----------------------------*/
-    public function store(UsuariosRequest $request) 
+    public function store(Request $request) 
     {
 
     	$user = new User();
@@ -87,7 +87,7 @@ class UserController extends Controller
 /*-- ----------------------------
 -- Update
 -- ----------------------------*/
-    public function update(UsuariosUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
     	$user = User::find($id);

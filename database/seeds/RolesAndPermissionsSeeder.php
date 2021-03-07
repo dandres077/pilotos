@@ -92,17 +92,36 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'modelos.edit']);
 		Permission::create(['name' => 'modelos.active']);
 		Permission::create(['name' => 'modelos.inactive']);
+		Permission::create(['name' => 'administracion.index']);
 		
 
-        // create roles and assign created permissions
-
-
-        // or may be done by chaining
-        /*$role = Role::create(['name' => 'moderator'])
-            ->givePermissionTo(['publish articles', 'unpublish articles']);*/
+        // create roles and assign created permissions       
 
         $role = Role::create(['name' => 'SuperAdministrador']);
         $role->givePermissionTo(Permission::all());
+
+		// or may be done by chaining
+        $role = Role::create(['name' => 'Piloto'])
+            ->givePermissionTo([
+								'marcas.store',
+								'marcas.index',
+								'marcas.create',
+								'marcas.update',
+								'marcas.show',
+								'marcas.destroy',
+								'marcas.edit',
+								'marcas.active',
+								'marcas.inactive',
+								'modelos.store',
+								'modelos.index',
+								'modelos.create',
+								'modelos.update',
+								'modelos.show',
+								'modelos.destroy',
+								'modelos.edit',
+								'modelos.active',
+								'modelos.inactive',
+			]);
 
         DB::table('model_has_roles')->insert([
             'role_id' => 1,
@@ -111,7 +130,7 @@ class RolesAndPermissionsSeeder extends Seeder
         ]);
 
         DB::table('model_has_roles')->insert([
-            'role_id' => 1,
+            'role_id' => 2,
             'model_type' => 'App\User',
             'model_id' => 2
         ]);
